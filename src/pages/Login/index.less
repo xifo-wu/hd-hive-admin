@@ -1,0 +1,88 @@
+.container {
+  display: flex;
+  color: #0f172a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+
+  :global {
+    .brand {
+      display: block;
+      padding-top: 8px;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .content {
+      flex: 2;
+      min-height: 100vh;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      backdrop-filter: blur(6px);
+      background-color: rgb(255 255 255 / 60%);
+
+      .content-box {
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        padding: 16px;
+        height: 100%;
+        min-height: 100vh;
+
+        .login-box {
+          width: 400px;
+          padding: 16px;
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          flex: 1;
+
+          .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            box-sizing: inherit;
+            margin: 0;
+            display: block;
+            line-height: 1.5;
+          }
+
+          .sub-title {
+            margin: 0;
+            display: block;
+            font-size: 0.875;
+            line-height: 1.5;
+            color: #334155;
+            margin-top: 8px;
+            margin-bottom: 24px;
+          }
+        }
+      }
+
+      .footer {
+        color: #334155;
+        font-size: 0.875;
+      }
+    }
+
+    .cover {
+      flex: 1;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    @media (max-width: 800px) {
+      .cover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+}
