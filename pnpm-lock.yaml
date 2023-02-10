@@ -8,6 +8,7 @@ specifiers:
   '@umijs/max': ^4.0.50
   antd: ^5.0.0
   axios: ^1.3.2
+  dayjs: ^1.11.7
   husky: ^8.0.1
   lint-staged: ^13.0.3
   prettier: ^2.7.1
@@ -22,6 +23,7 @@ dependencies:
   '@umijs/max': 4.0.50_upln644bkpvnhepeneg4667hum
   antd: 5.2.0
   axios: 1.3.2
+  dayjs: 1.11.7
   swr: 2.0.3
 
 devDependencies:

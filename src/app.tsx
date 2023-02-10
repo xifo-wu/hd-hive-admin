@@ -58,6 +58,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       locale: false,
     },
     rightContentRender: () => <></>,
+    onMenuHeaderClick: () => {
+      history.push('/admin/home');
+    },
   };
 };
 

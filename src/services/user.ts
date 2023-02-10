@@ -20,6 +20,7 @@ export const queryCurrentUser = async () => {
   } catch (error: any) {
     if (error.httpStatus === 401) {
       message.error('登录过期请重新登录');
+      history.push('/admin/user/login');
     }
 
     return;

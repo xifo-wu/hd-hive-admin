@@ -30,6 +30,7 @@ export default defineConfig({
     },
     {
       path: '/admin',
+      flatMenu: true,
       routes: [
         {
           name: '首页',
@@ -37,14 +38,19 @@ export default defineConfig({
           path: '/admin/home',
           component: './Home',
         },
+        {
+          name: '资源分享',
+          icon: 'cloud',
+          path: '/admin/share',
+          component: './Share',
+        },
       ],
     },
     // {
-    //   name: '首页',
-    //
-    //   hideInMenu: true,
-    //   component: './Home',
-    // },
+    //   name: '资源分享',
+    //   path: '/admin/share',
+    //   component: './Share',
+    // }
   ],
   npmClient: 'pnpm',
 });
