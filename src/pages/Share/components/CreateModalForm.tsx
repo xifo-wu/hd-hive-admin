@@ -63,6 +63,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
           original_title: data.original_name,
           number_of_episodes: data.number_of_episodes,
           number_of_seasons: data.number_of_seasons,
+          release_date: data.first_air_date,
         });
       } else if (shareType === 'movie') {
         const keywords = [`#${data.title}`].concat(
@@ -76,6 +77,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
           title: data.title,
           original_title: data.original_title,
           runtime: data.runtime,
+          release_date: data.release_date,
         });
       }
     } catch (error: any) {
@@ -224,6 +226,11 @@ const CreateModalForm = ({ onFinish }: Props) => {
             ),
           }}
         />
+      </ProForm.Group>
+
+      <ProForm.Group>
+        <ProFormText label="首播时间" name="release_date" />
+        <ProFormText width="md" label="标语" name="tagline" />
       </ProForm.Group>
 
       {shareType === 'tv' && (

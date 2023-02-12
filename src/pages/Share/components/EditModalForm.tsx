@@ -153,6 +153,11 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
         />
       </ProForm.Group>
 
+      <ProForm.Group>
+        <ProFormText label="首播时间" name="release_date" />
+        <ProFormText width="md" label="标语" name="tagline" />
+      </ProForm.Group>
+
       {shareType === 'tv' && (
         <ProForm.Group>
           <ProFormDigit
