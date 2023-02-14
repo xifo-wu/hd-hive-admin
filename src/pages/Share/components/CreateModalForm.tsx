@@ -45,7 +45,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
       const formValue = {
         genres,
         backdrop_path: data.backdrop_path,
-        overview: data.overview,
+        overview: (data.overview || '').replaceAll('\r', ''),
         poster_path: data.poster_path,
         tagline: data.tagline,
       };
