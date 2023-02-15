@@ -20,6 +20,7 @@ import api from '@/lib/utils/api';
 import CreateModalForm from './components/CreateModalForm';
 import EditModalForm from './components/EditModalForm';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import SendMessageToTelegram from './components/SendMessageToTelegram';
 
 const searchParamsToObject = (searchParams: URLSearchParams) => {
   const object: Record<string, string> = {};
@@ -75,7 +76,6 @@ const Share = () => {
     }
 
     message.success('删除成功');
-    console.log(meta, '1112???');
     if (meta.after === meta.before) {
       const obj = searchParamsToObject(searchParams);
       setSearchParams({
@@ -132,6 +132,10 @@ const Share = () => {
       render: (record: any) => {
         return (
           <Space>
+            <SendMessageToTelegram
+              slug={record.slug}
+              trigger={<Button type="link">发送消息到 Telegram</Button>}
+            />
             <EditModalForm slug={record.slug} onFinish={() => mutate()} />
             <Popconfirm
               title="确定删除吗?"

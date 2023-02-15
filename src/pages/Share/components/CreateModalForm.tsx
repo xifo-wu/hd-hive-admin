@@ -308,7 +308,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
         name="remark"
         label="备注"
         placeholder="请输入备注"
-        initialValue="频道推荐: [群主自营优惠阿里会员](https://t.me/Aliyun_4K_Movies/3933)"
+        initialValue="频道推荐: <a href='https://t.me/Aliyun_4K_Movies/3933'>群主自营优惠阿里会员</a>"
       />
 
       <ProForm.Group>
