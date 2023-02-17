@@ -12,6 +12,9 @@ export default defineConfig({
       changeOrigin: true,
     },
   },
+  codeSplitting: {
+    jsStrategy: 'granularChunks',
+  },
   title: '影巢 - HD Hive',
   layout: {},
   routes: [
