@@ -12,6 +12,7 @@ export default defineConfig({
       changeOrigin: true,
     },
   },
+  title: '影巢 - HD Hive',
   layout: {},
   routes: [
     {
@@ -20,6 +21,7 @@ export default defineConfig({
       routes: [
         {
           path: '/admin/user/login',
+          name: '影巢登录',
           component: './Login',
         },
       ],
