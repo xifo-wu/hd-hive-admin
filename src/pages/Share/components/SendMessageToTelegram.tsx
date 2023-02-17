@@ -31,9 +31,13 @@ const SendMessageToTelegram = ({ open, slug, ...rest }: Props) => {
           `资源名称: <b>${data.title}</b>  
 影片原名: ${data.original_title}  
 影片年代: ${data.release_date}  
-资源标签: ${(data.keywords || []).map((item: string) => `${item}`).join(', ')}  
 资源简介: ${data.overview}  
-分享链接:  
+
+🏷️ 资源标签: ${(data.keywords || [])
+            .map((item: string) => `${item}`)
+            .join(', ')}  
+
+🔗 分享链接:  
 ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}
