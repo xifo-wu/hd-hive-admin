@@ -19,43 +19,38 @@ export default defineConfig({
   layout: {},
   routes: [
     {
-      path: '/admin/user',
+      path: '/user',
       layout: false,
       routes: [
         {
-          path: '/admin/user/login',
+          path: '/user/login',
           name: '影巢登录',
           component: './Login',
         },
       ],
     },
     {
-      path: '/admin',
-      redirect: '/admin/home',
+      path: '/',
+      redirect: '/home',
     },
     {
-      path: '/admin',
+      path: '/',
       flatMenu: true,
       routes: [
         {
           name: '首页',
           hideInMenu: true,
-          path: '/admin/home',
+          path: '/home',
           component: './Home',
         },
         {
           name: '资源分享',
           icon: 'cloud',
-          path: '/admin/share',
+          path: '/share',
           component: './Share',
         },
       ],
     },
-    // {
-    //   name: '资源分享',
-    //   path: '/admin/share',
-    //   component: './Share',
-    // }
   ],
   npmClient: 'pnpm',
 });

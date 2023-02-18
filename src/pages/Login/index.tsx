@@ -20,7 +20,7 @@ const Login = () => {
 
     const { meta } = response;
     localStorage.setItem('accessToken', meta.access_token);
-    history.push('/admin');
+    history.push('/');
   };
   return (
     <div className={styles.container}>

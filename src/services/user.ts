@@ -20,7 +20,7 @@ export const queryCurrentUser = async () => {
   } catch (error: any) {
     if (error.httpStatus === 401) {
       message.error('登录过期请重新登录');
-      history.push('/admin/user/login');
+      history.push('/user/login');
     }
 
     return;
@@ -29,5 +29,5 @@ export const queryCurrentUser = async () => {
 
 export const logout = async () => {
   await api.delete('/api/v1/logout');
-  history.push('/admin/user/login');
+  history.push('/user/login');
 };
