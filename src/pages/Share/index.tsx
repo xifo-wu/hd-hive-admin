@@ -119,7 +119,7 @@ const Share = () => {
       title: '类型',
       dataIndex: 'genres',
       render: (v: any) => {
-        return v.map((i: any) => <Tag key={i}>{i}</Tag>);
+        return v && (v || []).map((i: any) => <Tag key={i}>{i}</Tag>);
       },
     },
     {
