@@ -4,6 +4,7 @@ export default defineConfig({
   antd: {},
   access: {},
   model: {},
+  hash: true,
   initialState: {},
   request: {},
   proxy: {
