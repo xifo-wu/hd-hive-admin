@@ -33,14 +33,15 @@ const SendMessageToTelegram = ({ open, slug, ...rest }: Props) => {
 影片年代: ${data.release_date}  
 资源简介: ${data.overview}  
 
-🏷️ 资源标签: ${(data.keywords || [])
-            .map((item: string) => `${item}`)
-            .join(', ')}  
+🏷️ 资源标签:  
+${(data.keywords || []).map((item: string) => `${item}`).join(', ')}  
 
 🔗 分享链接:  
 ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}
+
+📢 <a href="https://www.hdhive.org">资源分享站（影巢）Beta 版试运行</a>
 
 ${data.remark}
 `,
