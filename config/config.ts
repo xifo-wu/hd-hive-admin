@@ -50,6 +50,12 @@ export default defineConfig({
           path: '/share',
           component: './Share',
         },
+        {
+          name: '系统配置',
+          icon: 'setting',
+          path: '/system-setting',
+          component: './SystemSeting',
+        },
       ],
     },
   ],
