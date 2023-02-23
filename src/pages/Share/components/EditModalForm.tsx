@@ -194,7 +194,32 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
 
       <ProFormTextArea name="overview" label="简介" placeholder="请输入简介" />
 
-      <ProForm.Group title="分享信息"></ProForm.Group>
+      <ProForm.Group title="分享信息">
+        <ProFormSelect
+          width="lg"
+          options={[
+            {
+              value: 'movie',
+              label: '电影',
+            },
+            {
+              value: 'tv',
+              label: '连续剧',
+            },
+            {
+              value: 'anime',
+              label: '动漫',
+            },
+            {
+              value: 'zongyi',
+              label: '综艺',
+            },
+          ]}
+          name="share_type"
+          label="资源类型"
+          required
+        />
+      </ProForm.Group>
 
       <ProFormList
         required
@@ -284,7 +309,6 @@ const EditModalFormWrapper = ({ modalProps, ...rest }: any) => {
           onOpenChange={setOpen}
           open={open}
           {...rest}
-          handleAfterClose={handleAfterClose}
         />
       )}
     </>

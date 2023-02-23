@@ -17,10 +17,12 @@ import {
   Typography,
 } from 'antd';
 import api from '@/lib/utils/api';
-import CreateModalForm from './components/CreateModalForm';
 import EditModalForm from './components/EditModalForm';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SendMessageToTelegram from './components/SendMessageToTelegram';
+import SelectModeModal from './components/SelectModeModal';
+import CreateShareModalForm from './components/CreateShareModalForm';
+import { useModal } from '@/lib/hooks';
 
 const searchParamsToObject = (searchParams: URLSearchParams) => {
   const object: Record<string, string> = {};
@@ -32,6 +34,7 @@ const searchParamsToObject = (searchParams: URLSearchParams) => {
 };
 
 const Share = () => {
+  const { openModal } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     data: res = {},
@@ -132,10 +135,14 @@ const Share = () => {
       render: (record: any) => {
         return (
           <Space>
-            <SendMessageToTelegram
-              slug={record.slug}
-              trigger={<Button type="link">发送消息到 Telegram</Button>}
-            />
+            <Button
+              onClick={() =>
+                openModal('SendMessageToTelegram', { slug: record.slug })
+              }
+              type="link"
+            >
+              发送消息到 Telegram
+            </Button>
             <EditModalForm slug={record.slug} onFinish={() => mutate()} />
             <Popconfirm
               title="确定删除吗?"
@@ -172,7 +179,7 @@ const Share = () => {
             资源列表
           </Typography.Title>
           <Space size={[8, 8]}>
-            <CreateModalForm onFinish={() => mutate()} />
+            <SelectModeModal />
           </Space>
         </Space>
 
@@ -204,6 +211,9 @@ const Share = () => {
           </Space>
         </div>
       </Card>
+
+      <CreateShareModalForm onFinish={() => mutate()} />
+      <SendMessageToTelegram />
     </PageContainer>
   );
 };

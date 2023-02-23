@@ -8,84 +8,25 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { Button, Form, message, Popover, Popconfirm } from 'antd';
-import { EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, message, Popover } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
 import api from '@/lib/utils/api';
+import withModalForm from '@/lib/hoc/withModalForm';
+import { useModal } from '@/lib/hooks';
 
 interface Props {
   onFinish?: (response: any) => void;
 }
 
-const CreateModalForm = ({ onFinish }: Props) => {
-  // 获取 TMDB 时的 Loading
-  const [tmdbLoading, setTmdbLoading] = useState(false);
+const modalName = 'CreateShareModalForm';
+
+const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
+  const { params, closeModal } = useModal(modalName);
   const [form] = Form.useForm();
-  const tmdbId = Form.useWatch('tmdb_id', form);
-  const shareType = Form.useWatch('share_type', form);
   const posterPath = Form.useWatch('poster_path', form);
   const backdropPath = Form.useWatch('backdrop_path', form);
-  const [keywords, setKeywords] = useState<string[]>([]);
-  const [genres, setGenres] = useState<string[]>([]);
-
-  const handleAutoWrite = async () => {
-    setTmdbLoading(true);
-    let apiUrl = '/api/v1/tmdb/';
-    if (shareType === 'movie') {
-      apiUrl += `movie/${tmdbId}`;
-    }
-    if (shareType === 'tv') {
-      apiUrl += `tv/${tmdbId}`;
-    }
-
-    try {
-      const data = await api.get<any, any>(apiUrl);
-
-      const genres = (data.genres || []).map((item: any) => item.name);
-      setGenres(genres);
-      const formValue = {
-        genres,
-        backdrop_path: data.backdrop_path,
-        overview: (data.overview || '').replaceAll('\r', ''),
-        poster_path: data.poster_path,
-        tagline: data.tagline,
-      };
-
-      if (shareType === 'tv') {
-        const keywords = [`#${data.name}`].concat(
-          (data.genres || []).map((item: any) => `#${item.name}`),
-        );
-        setKeywords(keywords);
-
-        form.setFieldsValue({
-          ...formValue,
-          title: data.name,
-          keywords,
-          original_title: data.original_name,
-          number_of_episodes: data.number_of_episodes,
-          number_of_seasons: data.number_of_seasons,
-          release_date: data.first_air_date,
-        });
-      } else if (shareType === 'movie') {
-        const keywords = [`#${data.title}`].concat(
-          (data.genres || []).map((item: any) => `#${item.name}`),
-        );
-        setKeywords(keywords);
-
-        form.setFieldsValue({
-          ...formValue,
-          keywords,
-          title: data.title,
-          original_title: data.original_title,
-          runtime: data.runtime,
-          release_date: data.release_date,
-        });
-      }
-    } catch (error: any) {
-      message.warning(error.message);
-    }
-
-    setTmdbLoading(false);
-  };
+  const [keywords] = useState<string[]>(params.keywords);
+  const [genres] = useState<string[]>(params.genres);
 
   const handleSubmit = async (values: any) => {
     const payload = {
@@ -102,64 +43,26 @@ const CreateModalForm = ({ onFinish }: Props) => {
       return;
     }
 
-    message.success('创建成功');
+    message.success('分享成功 🎉');
     onFinish?.(response);
+    closeModal(modalName);
+    closeModal('SelectModeModal');
     return true;
   };
 
   return (
     <ModalForm
+      initialValues={params}
       title="新建分享"
       form={form}
-      trigger={
-        <Button type="primary">
-          <PlusOutlined />
-          新建分享
-        </Button>
-      }
       autoFocusFirstInput
       submitTimeout={2000}
       onFinish={handleSubmit}
       modalProps={{
         destroyOnClose: true,
       }}
+      {...rest}
     >
-      <ProForm.Group>
-        <ProFormText
-          name="tmdb_id"
-          width="md"
-          label="TMDB ID"
-          tooltip="themoviedb 链接上那串数字"
-          placeholder="请输入 TMDB ID"
-        />
-        <ProFormSelect
-          options={[
-            {
-              value: 'movie',
-              label: '电影',
-            },
-            {
-              value: 'tv',
-              label: '剧集',
-            },
-          ]}
-          width="sm"
-          addonAfter={
-            <Popconfirm
-              title="将根据影视信息自动填写"
-              description="如果已有内容将会覆盖，你确定要覆盖现有内容嘛？"
-              onConfirm={handleAutoWrite}
-            >
-              <Button loading={tmdbLoading} disabled={!tmdbId || !shareType}>
-                自动填写
-              </Button>
-            </Popconfirm>
-          }
-          name="share_type"
-          label="资源类型"
-        />
-      </ProForm.Group>
-
       <ProForm.Group title="影视信息">
         <ProFormText
           rules={[
@@ -233,7 +136,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
         <ProFormText width="md" label="标语" name="tagline" />
       </ProForm.Group>
 
-      {shareType === 'tv' && (
+      {params.tmdb_type === 'tv' && (
         <ProForm.Group>
           <ProFormDigit
             label="季数"
@@ -269,7 +172,32 @@ const CreateModalForm = ({ onFinish }: Props) => {
 
       <ProFormTextArea name="overview" label="简介" placeholder="请输入简介" />
 
-      <ProForm.Group title="分享信息"></ProForm.Group>
+      <ProForm.Group title="分享信息">
+        <ProFormSelect
+          width="lg"
+          options={[
+            {
+              value: 'movie',
+              label: '电影',
+            },
+            {
+              value: 'tv',
+              label: '连续剧',
+            },
+            {
+              value: 'anime',
+              label: '动漫',
+            },
+            {
+              value: 'zongyi',
+              label: '综艺',
+            },
+          ]}
+          name="share_type"
+          label="资源类型"
+          required
+        />
+      </ProForm.Group>
 
       <ProFormList
         required
@@ -320,7 +248,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
           initialValue="@Aliyun_4K_Movies"
         />
 
-        {shareType === 'tv' && (
+        {params.tmdb_type === 'tv' && (
           <ProForm.Group>
             <ProFormDigit
               label="分享的季数"
@@ -341,4 +269,4 @@ const CreateModalForm = ({ onFinish }: Props) => {
   );
 };
 
-export default CreateModalForm;
+export default withModalForm(CreateShareModalForm, modalName);

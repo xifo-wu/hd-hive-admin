@@ -1,14 +1,22 @@
-import { cloneElement, useState } from 'react';
+import { useEffect, cloneElement, useState } from 'react';
 import type { ModalFormProps } from '@ant-design/pro-components';
+import { useModal } from '../hooks';
 
-const withModalForm = <T,>(Component: any) => {
+const withModalForm = <T,>(Component: any, modalName: string) => {
   function ComponentWithProp({
     trigger,
     modalProps,
     ...rest
   }: T & ModalFormProps) {
-    const [open, setOpen] = useState(false);
-    const [isMount, setIsMount] = useState(true);
+    const { open, openModal, closeModal } = useModal(modalName);
+    const [isMount, setIsMount] = useState(false);
+
+    useEffect(() => {
+      if (open) {
+        console.log(open);
+        setIsMount(true);
+      }
+    }, [open]);
 
     const handleAfterClose = () => {
       setIsMount(false);
@@ -16,7 +24,13 @@ const withModalForm = <T,>(Component: any) => {
 
     const handleOpen = () => {
       setIsMount(true);
-      setOpen(true);
+      openModal(modalName);
+    };
+
+    const handleOpenChange = (open: boolean) => {
+      if (!open) {
+        closeModal(modalName);
+      }
     };
 
     return (
@@ -34,7 +48,7 @@ const withModalForm = <T,>(Component: any) => {
               ...modalProps,
               afterClose: handleAfterClose,
             }}
-            onOpenChange={setOpen}
+            onOpenChange={handleOpenChange}
             {...rest}
           />
         )}

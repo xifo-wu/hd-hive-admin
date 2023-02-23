@@ -10,12 +10,15 @@ import ReactMarkdown from 'react-markdown';
 import { Row, Col, Form, Card, notification } from 'antd';
 import styles from '../styles.less';
 import rehypeRaw from 'rehype-raw';
+import { useModal } from '@/lib/hooks';
 
-interface Props extends ModalFormProps {
-  slug: string;
-}
+type Props = ModalFormProps;
 
-const SendMessageToTelegram = ({ open, slug, ...rest }: Props) => {
+const modalName = 'SendMessageToTelegram';
+
+const SendMessageToTelegram = ({ open, ...rest }: Props) => {
+  const { params } = useModal(modalName);
+  const { slug } = params;
   const [form] = Form.useForm();
   const [notificationApi, contextHolder] = notification.useNotification();
 
@@ -125,4 +128,4 @@ ${data.remark}
   );
 };
 
-export default withModalForm<Props>(SendMessageToTelegram);
+export default withModalForm<Props>(SendMessageToTelegram, modalName);
