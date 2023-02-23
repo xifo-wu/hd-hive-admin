@@ -41,7 +41,7 @@ ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}
 
-📢 <a href="https://www.hdhive.org">资源分享站（影巢）Beta 版试运行</a>
+🎉 <a href="https://www.hdhive.org">阿里云盘4K影视资源分享站 - 影巢 Beta 版试运行</a>
 
 ${data.remark}
 `,
