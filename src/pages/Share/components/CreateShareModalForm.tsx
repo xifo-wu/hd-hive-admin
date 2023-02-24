@@ -19,6 +19,40 @@ interface Props {
 }
 
 const modalName = 'CreateShareModalForm';
+const shareType = [
+  {
+    value: 'movie',
+    label: '电影',
+  },
+  {
+    value: 'tv',
+    label: '剧集',
+  },
+  {
+    value: 'anime',
+    label: '动漫',
+  },
+  {
+    value: 'zongyi',
+    label: '综艺',
+  },
+  {
+    value: 'study',
+    label: '学习',
+  },
+  {
+    value: 'recital',
+    label: '演唱会',
+  },
+  {
+    value: 'documentary',
+    label: '纪录片',
+  },
+  {
+    value: 'ebook',
+    label: '电子书',
+  },
+];
 
 const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
   const { params, closeModal } = useModal(modalName);
@@ -63,6 +97,7 @@ const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
       }}
       {...rest}
     >
+      <ProFormText hidden name="tmdb_id" />
       <ProForm.Group title="影视信息">
         <ProFormText
           rules={[
@@ -174,28 +209,30 @@ const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
 
       <ProForm.Group title="分享信息">
         <ProFormSelect
-          width="lg"
-          options={[
-            {
-              value: 'movie',
-              label: '电影',
-            },
-            {
-              value: 'tv',
-              label: '连续剧',
-            },
-            {
-              value: 'anime',
-              label: '动漫',
-            },
-            {
-              value: 'zongyi',
-              label: '综艺',
-            },
-          ]}
+          width="sm"
+          options={shareType}
           name="share_type"
           label="资源类型"
           required
+        />
+
+        <ProFormText width="sm" label="资源大小" name="share_size" />
+
+        <ProFormText
+          width="sm"
+          label="分享来源"
+          name="share_source"
+          initialValue="@Aliyun_4K_Movies"
+        />
+
+        <ProFormSelect
+          width="lg"
+          options={['8k', '4k', '1080p', '720p']}
+          fieldProps={{
+            mode: 'tags',
+          }}
+          name="video_resolution"
+          label="分辨率"
         />
       </ProForm.Group>
 
@@ -241,14 +278,7 @@ const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
       />
 
       <ProForm.Group>
-        <ProFormText
-          width="md"
-          label="分享来源"
-          name="share_source"
-          initialValue="@Aliyun_4K_Movies"
-        />
-
-        {params.tmdb_type === 'tv' && (
+        {/* {params.tmdb_type === 'tv' && (
           <ProForm.Group>
             <ProFormDigit
               label="分享的季数"
@@ -263,7 +293,7 @@ const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
               fieldProps={{ precision: 0 }}
             />
           </ProForm.Group>
-        )}
+        )} */}
       </ProForm.Group>
     </ModalForm>
   );

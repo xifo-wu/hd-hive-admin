@@ -44,6 +44,7 @@ const SelectModeModal = () => {
         poster_path: data.poster_path,
         tagline: data.tagline,
         tmdb_type: type,
+        tmdb_id: id,
       };
 
       if (type === 'tv') {
@@ -59,6 +60,7 @@ const SelectModeModal = () => {
           number_of_episodes: data.number_of_episodes,
           number_of_seasons: data.number_of_seasons,
           release_date: data.first_air_date,
+          runtime: data?.episode_run_time?.[0],
         };
       } else if (type === 'movie') {
         const keywords = [`#${data.title}`].concat(

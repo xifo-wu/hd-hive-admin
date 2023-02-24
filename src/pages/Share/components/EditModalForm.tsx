@@ -17,6 +17,41 @@ interface Props {
   slug: string;
 }
 
+const shareTypeOpts = [
+  {
+    value: 'movie',
+    label: '电影',
+  },
+  {
+    value: 'tv',
+    label: '剧集',
+  },
+  {
+    value: 'anime',
+    label: '动漫',
+  },
+  {
+    value: 'zongyi',
+    label: '综艺',
+  },
+  {
+    value: 'study',
+    label: '学习',
+  },
+  {
+    value: 'recital',
+    label: '演唱会',
+  },
+  {
+    value: 'documentary',
+    label: '纪录片',
+  },
+  {
+    value: 'ebook',
+    label: '电子书',
+  },
+];
+
 const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
   const dataRef = useRef({});
   const [form] = Form.useForm();
@@ -196,28 +231,30 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
 
       <ProForm.Group title="分享信息">
         <ProFormSelect
-          width="lg"
-          options={[
-            {
-              value: 'movie',
-              label: '电影',
-            },
-            {
-              value: 'tv',
-              label: '连续剧',
-            },
-            {
-              value: 'anime',
-              label: '动漫',
-            },
-            {
-              value: 'zongyi',
-              label: '综艺',
-            },
-          ]}
+          width="sm"
+          options={shareTypeOpts}
           name="share_type"
           label="资源类型"
           required
+        />
+
+        <ProFormText width="sm" label="资源大小" name="share_size" />
+
+        <ProFormText
+          width="sm"
+          label="分享来源"
+          name="share_source"
+          initialValue="@Aliyun_4K_Movies"
+        />
+
+        <ProFormSelect
+          width="lg"
+          options={['8k', '4k', '1080p', '720p']}
+          fieldProps={{
+            mode: 'tags',
+          }}
+          name="video_resolution"
+          label="分辨率"
         />
       </ProForm.Group>
 
@@ -255,27 +292,6 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
       </ProFormList>
 
       <ProFormTextArea name="remark" label="备注" placeholder="请输入备注" />
-
-      <ProForm.Group>
-        <ProFormText width="md" label="分享来源" name="share_source" />
-
-        {shareType === 'tv' && (
-          <ProForm.Group>
-            <ProFormDigit
-              label="分享的季数"
-              name="share_number_of_seasons"
-              min={0}
-              fieldProps={{ precision: 0 }}
-            />
-            <ProFormDigit
-              label="分享的集数"
-              name="share_number_of_episodes"
-              min={0}
-              fieldProps={{ precision: 0 }}
-            />
-          </ProForm.Group>
-        )}
-      </ProForm.Group>
     </ModalForm>
   );
 };
