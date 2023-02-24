@@ -294,7 +294,7 @@ const EditModalFormWrapper = ({ modalProps, ...rest }: any) => {
 
   return (
     <>
-      <Button type="link" onClick={handleOpen}>
+      <Button size="small" type="link" onClick={handleOpen}>
         编辑
       </Button>
       {isMount && (

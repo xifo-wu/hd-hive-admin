@@ -132,10 +132,12 @@ const Share = () => {
     },
     {
       title: '操作',
+      fixed: 'right',
       render: (record: any) => {
         return (
           <Space>
             <Button
+              size="small"
               onClick={() =>
                 openModal('SendMessageToTelegram', { slug: record.slug })
               }
@@ -149,7 +151,7 @@ const Share = () => {
               description="删除后网站上的内容将无法访问"
               onConfirm={() => handleDelete(record.slug)}
             >
-              <Button type="link" danger>
+              <Button size="small" type="link" danger>
                 删除
               </Button>
             </Popconfirm>
@@ -188,6 +190,7 @@ const Share = () => {
           loading={isLoading}
           rowKey="id"
           scroll={{ x: 'max-content' }}
+          // @ts-ignore 加个 fixed right 就报错。无语 😓
           columns={columns}
           dataSource={dataSource}
         />
