@@ -21,7 +21,7 @@ const { Text } = Typography;
 
 const categories: Record<string, string> = {
   movie: '电影',
-  tb: '剧集',
+  tv: '剧集',
   anime: '动漫',
   zongyi: '综艺',
   study: '学习',
