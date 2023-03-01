@@ -243,7 +243,7 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
         <ProFormText width="sm" label="分享来源" name="share_source" />
 
         <ProFormSelect
-          width="lg"
+          width="md"
           options={['8k', '4k', '1080p', '720p']}
           fieldProps={{
             mode: 'tags',
@@ -251,6 +251,16 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
           name="video_resolution"
           label="分辨率"
         />
+
+        {/* <ProFormSelect
+          width="md"
+          options={['WEB-DL', 'BluRay', 'HDTV', 'Other']}
+          fieldProps={{
+            mode: 'tags',
+          }}
+          name="source"
+          label="片源"
+        /> */}
       </ProForm.Group>
 
       <ProFormList
