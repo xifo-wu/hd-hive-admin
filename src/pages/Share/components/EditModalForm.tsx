@@ -240,12 +240,7 @@ const EditModalForm = ({ onFinish, slug, ...rest }: Props) => {
 
         <ProFormText width="sm" label="资源大小" name="share_size" />
 
-        <ProFormText
-          width="sm"
-          label="分享来源"
-          name="share_source"
-          initialValue="@Aliyun_4K_Movies"
-        />
+        <ProFormText width="sm" label="分享来源" name="share_source" />
 
         <ProFormSelect
           width="lg"
