@@ -15,6 +15,7 @@ import SelectModeModal from './components/SelectModeModal';
 import CreateShareModalForm from './components/CreateShareModalForm';
 import { useModal } from '@/lib/hooks';
 import MoreActions from './components/MoreActions';
+import ReplaceBannerModal from './components/ReplaceBannerModal';
 
 const { Text } = Typography;
 
@@ -242,6 +243,7 @@ const Share = () => {
 
       <CreateShareModalForm onFinish={() => mutate()} />
       <SendMessageToTelegram />
+      <ReplaceBannerModal onFinish={() => mutate()} />
     </PageContainer>
   );
 };
