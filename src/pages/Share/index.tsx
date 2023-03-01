@@ -132,7 +132,7 @@ const Share = () => {
     },
     {
       title: '操作',
-      fixed: 'right',
+      // fixed: 'right',
       render: (record: any) => {
         return (
           <Space>
@@ -143,7 +143,7 @@ const Share = () => {
               }
               type="link"
             >
-              发送消息到 Telegram
+              Telegram 通知
             </Button>
             <EditModalForm slug={record.slug} onFinish={() => mutate()} />
             <Popconfirm

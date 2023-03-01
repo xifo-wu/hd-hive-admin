@@ -51,6 +51,12 @@ export default defineConfig({
           component: './Share',
         },
         {
+          name: '流派管理',
+          icon: 'nodeIndex',
+          path: '/genre',
+          component: './Genre',
+        },
+        {
           name: '系统配置',
           icon: 'setting',
           path: '/system-setting',
