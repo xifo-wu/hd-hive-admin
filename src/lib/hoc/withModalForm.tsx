@@ -43,6 +43,7 @@ const withModalForm = <T,>(Component: any, modalName: string) => {
 
         {isMount && (
           <Component
+            modalName={modalName}
             open={open}
             modalProps={{
               ...modalProps,

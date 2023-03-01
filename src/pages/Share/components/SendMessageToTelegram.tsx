@@ -12,11 +12,13 @@ import styles from '../styles.less';
 import rehypeRaw from 'rehype-raw';
 import { useModal } from '@/lib/hooks';
 
-type Props = ModalFormProps;
+type Props = {
+  modalName?: string;
+} & ModalFormProps;
 
-const modalName = 'SendMessageToTelegram';
+const initModalName = 'SendMessageToTelegram';
 
-const SendMessageToTelegram = ({ open, ...rest }: Props) => {
+const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
   const { params } = useModal(modalName);
   const { slug } = params;
   const [form] = Form.useForm();
@@ -44,7 +46,7 @@ ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}
 
-🎉 <a href="https://www.hdhive.org">阿里云盘4K影视资源分享站 - 影巢 Beta 版试运行</a>
+🎉 <a href="https://www.hdhive.org">影巢分类上线 - https://www.hdhive.org</a>
 
 ${data.remark}
 `,
@@ -128,4 +130,4 @@ ${data.remark}
   );
 };
 
-export default withModalForm<Props>(SendMessageToTelegram, modalName);
+export default withModalForm<Props>(SendMessageToTelegram, initModalName);
