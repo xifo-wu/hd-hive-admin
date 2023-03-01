@@ -6,16 +6,7 @@ import {
   QueryFilter,
   PageContainer,
 } from '@ant-design/pro-components';
-import {
-  Button,
-  Card,
-  message,
-  Popconfirm,
-  Space,
-  Table,
-  Tag,
-  Typography,
-} from 'antd';
+import { Button, Card, message, Space, Table, Tag, Typography } from 'antd';
 import api from '@/lib/utils/api';
 import EditModalForm from './components/EditModalForm';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -23,6 +14,20 @@ import SendMessageToTelegram from './components/SendMessageToTelegram';
 import SelectModeModal from './components/SelectModeModal';
 import CreateShareModalForm from './components/CreateShareModalForm';
 import { useModal } from '@/lib/hooks';
+import MoreActions from './components/MoreActions';
+
+const { Text } = Typography;
+
+const categories: Record<string, string> = {
+  movie: '电影',
+  tb: '剧集',
+  anime: '动漫',
+  zongyi: '综艺',
+  study: '学习',
+  documentary: '纪录片',
+  ebook: '电子书',
+  recital: '演唱会',
+};
 
 const searchParamsToObject = (searchParams: URLSearchParams) => {
   const object: Record<string, string> = {};
@@ -95,40 +100,64 @@ const Share = () => {
     {
       title: '海报',
       dataIndex: 'poster_url',
-      width: 128,
+      width: 80,
       render: (v: string) => {
-        return <img src={v} width={128} />;
+        return <img src={v} width={64} />;
       },
     },
     {
       title: '标题',
       dataIndex: 'title',
-    },
-    {
-      title: '简介',
-      dataIndex: 'overview',
-      width: 256,
+      width: 128,
       render: (v: string) => {
         return (
-          <Typography.Paragraph
-            ellipsis={{ rows: 4, expandable: true, symbol: '更多' }}
-          >
+          <Text style={{ width: 128 }} ellipsis={{ tooltip: v }}>
             {v}
-          </Typography.Paragraph>
+          </Text>
         );
       },
     },
     {
+      title: '分类',
+      dataIndex: 'share_type',
+      render: (v: string) => categories[v] || '未知',
+    },
+    // {
+    //   title: '简介',
+    //   dataIndex: 'overview',
+    //   width: 256,
+    //   render: (v: string) => {
+    //     return (
+    //       <Typography.Paragraph
+    //         ellipsis={{ rows: 4, expandable: true, symbol: '更多' }}
+    //       >
+    //         {v}
+    //       </Typography.Paragraph>
+    //     );
+    //   },
+    // },
+    {
       title: '类型',
       dataIndex: 'genres',
+      width: 256,
       render: (v: any) => {
-        return v && (v || []).map((i: any) => <Tag key={i}>{i}</Tag>);
+        return (
+          v && (
+            <Space wrap>
+              {(v || []).map((i: any) => (
+                <Tag key={i} style={{ margin: 0 }}>
+                  {i}
+                </Tag>
+              ))}
+            </Space>
+          )
+        );
       },
     },
     {
       title: '最后更新时间',
       dataIndex: 'updated_at',
-      render: (v: any) => dayjs(v).format('YYYY-MM-DD HH:mm:ss'),
+      render: (v: any) => dayjs(v).format('YYYY-MM-DD'),
     },
     {
       title: '操作',
@@ -146,15 +175,11 @@ const Share = () => {
               Telegram 通知
             </Button>
             <EditModalForm slug={record.slug} onFinish={() => mutate()} />
-            <Popconfirm
-              title="确定删除吗?"
-              description="删除后网站上的内容将无法访问"
-              onConfirm={() => handleDelete(record.slug)}
-            >
-              <Button size="small" type="link" danger>
-                删除
-              </Button>
-            </Popconfirm>
+            <MoreActions
+              record={record}
+              onDelete={handleDelete}
+              reloadData={() => mutate()}
+            />
           </Space>
         );
       },
