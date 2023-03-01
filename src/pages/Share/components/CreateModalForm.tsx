@@ -304,13 +304,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
         />
       </ProFormList>
 
-      <ProFormTextArea
-        name="remark"
-        label="备注"
-        placeholder="请输入备注"
-        // TODO 广告链接可配置
-        initialValue="频道推荐: <a href='https://t.me/Aliyun_4K_Movies/5343'>群主自营优惠阿里会员</a>"
-      />
+      <ProFormTextArea name="remark" label="备注" placeholder="请输入备注" />
 
       <ProForm.Group>
         <ProFormText
