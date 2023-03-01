@@ -307,12 +307,7 @@ const CreateModalForm = ({ onFinish }: Props) => {
       <ProFormTextArea name="remark" label="备注" placeholder="请输入备注" />
 
       <ProForm.Group>
-        <ProFormText
-          width="md"
-          label="分享来源"
-          name="share_source"
-          initialValue="@Aliyun_4K_Movies"
-        />
+        <ProFormText width="md" label="分享来源" name="share_source" />
 
         {shareType === 'tv' && (
           <ProForm.Group>
