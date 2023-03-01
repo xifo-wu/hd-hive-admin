@@ -2,7 +2,7 @@
 import React from 'react';
 import { history } from '@umijs/max';
 import { LogoutOutlined } from '@ant-design/icons';
-import { queryCurrentUser, User } from './services/user';
+import { logout, queryCurrentUser, User } from './services/user';
 import ThemeProvider from './components/ThemeProvider';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { Tooltip } from 'antd';
@@ -50,7 +50,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     actionsRender: () => {
       return [
         <Tooltip key="lagout" title="退出登录">
-          <LogoutOutlined />
+          <LogoutOutlined onClick={logout} />
         </Tooltip>,
       ];
     },

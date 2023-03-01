@@ -10,7 +10,7 @@ const background =
 const Login = () => {
   const handleFinish = async (values: any) => {
     const { response, error } = await api.post<any, any>(
-      '/api/v1/login',
+      '/api/v1/manager/user/login',
       values,
     );
     if (error) {
