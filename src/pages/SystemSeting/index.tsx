@@ -2,6 +2,7 @@ import api from '@/lib/utils/api';
 import {
   PageContainer,
   ProForm,
+  ProFormSwitch,
   ProFormText,
 } from '@ant-design/pro-components';
 import { message } from 'antd';
@@ -21,6 +22,10 @@ const SystemSetting = () => {
     <PageContainer ghost>
       <ProForm
         onFinish={handleFinish}
+        grid
+        rowProps={{
+          gutter: [16, 16],
+        }}
         request={async () => {
           try {
             const response = await api.get('/api/v1/system-setting');
@@ -30,24 +35,67 @@ const SystemSetting = () => {
           }
         }}
       >
-        <ProFormText
-          width="xl"
-          name="telegram_bot_token"
-          label="电报机器人 Token"
-          required
-        />
-        <ProFormText
-          width="xl"
-          name="telegram_default_chat"
-          label="电报机器人默认发送消息频道"
-          required
-        />
-        <ProFormText
-          width="xl"
-          name="tmdb_app_key"
-          label="TMDB API KEY"
-          required
-        />
+        <ProForm.Group
+          colProps={{
+            md: 12,
+            xs: 24,
+            sm: 24,
+            xl: 8,
+          }}
+          title="消息通知"
+        >
+          <ProFormText
+            name="telegram_bot_token"
+            label="电报机器人 Token"
+            rules={[{ required: true }]}
+          />
+          <ProFormText
+            name="telegram_default_chat"
+            label="电报机器人默认发送消息频道"
+            required
+          />
+        </ProForm.Group>
+
+        <ProForm.Group
+          title="影视资料"
+          colProps={{
+            md: 12,
+            xs: 24,
+            sm: 24,
+            xl: 8,
+          }}
+        >
+          <ProFormText name="tmdb_app_key" label="TMDB API KEY" required />
+        </ProForm.Group>
+
+        <ProForm.Group
+          colProps={{
+            md: 12,
+            xs: 24,
+            sm: 24,
+            xl: 8,
+          }}
+          title="注册配置"
+        >
+          <ProFormText
+            name="invitation_code"
+            label="注册邀请码"
+            rules={[{ required: true }]}
+          />
+          <ProFormSwitch name="is_allow_register" label="是否允许注册" />
+        </ProForm.Group>
+        <ProForm.Group
+          title="页面配置"
+          colProps={{
+            md: 12,
+            xs: 24,
+            sm: 24,
+            xl: 8,
+          }}
+        >
+          <ProFormText name="shop_qr_code" label="商城购买VIP二维码地址" />
+          <ProFormText name="backdrop_url" label="背景图片(登录页、注册页)" />
+        </ProForm.Group>
       </ProForm>
     </PageContainer>
   );
