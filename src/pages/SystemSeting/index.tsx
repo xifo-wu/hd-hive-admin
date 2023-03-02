@@ -5,7 +5,7 @@ import {
   ProFormSwitch,
   ProFormText,
 } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { Alert, message } from 'antd';
 
 const SystemSetting = () => {
   const handleFinish = async (values: any) => {
@@ -20,6 +20,24 @@ const SystemSetting = () => {
 
   return (
     <PageContainer ghost>
+      <Alert
+        style={{ margin: '0 0 32px 0' }}
+        message={
+          <span>
+            图片可以通过图床上传 (
+            <a
+              href="https://telegraph-image.pages.dev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://telegraph-image.pages.dev
+            </a>
+            )
+          </span>
+        }
+        type="info"
+        showIcon
+      />
       <ProForm
         onFinish={handleFinish}
         grid
