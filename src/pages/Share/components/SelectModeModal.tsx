@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, message, Modal, Row } from 'antd';
@@ -37,11 +38,20 @@ const SelectModeModal = () => {
       const data = await api.get<any, any>(`/api/v1/tmdb/${type}/${id}`);
 
       const genres = (data.genres || []).map((item: any) => item.name);
+
+      const poster_path = _.chain(data)
+        .get('images.posters') // @ts-ignore
+        .find((i: any) => i.iso_639_1 === 'en')
+        .get('file_path')
+        .value();
+
       let params: any = {
         genres,
         backdrop_path: data.backdrop_path,
         overview: (data.overview || '').replaceAll('\r', ''),
-        poster_path: data.poster_path,
+        poster_path: poster_path || data.poster_path,
+        // 因英文海报更简洁，故优先取英文海报
+        // poster_path: _.find(_.get(data, "images.posters"))
         tagline: data.tagline,
         tmdb_type: type,
         tmdb_id: id,
