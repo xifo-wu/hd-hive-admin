@@ -31,6 +31,11 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
       revalidateOnFocus: false,
       onSuccess: (res) => {
         const { data } = res;
+        if (data.share_notification) {
+          form.setFieldValue('caption', data.share_notification.content);
+          return;
+        }
+
         form.setFieldValue(
           'caption',
           `资源名称: <b>${data.title} ${data.remark || ''}</b>  
