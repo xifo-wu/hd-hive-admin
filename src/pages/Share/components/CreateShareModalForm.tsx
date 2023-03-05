@@ -86,7 +86,10 @@ const CreateShareModalForm = ({ onFinish, ...rest }: Props) => {
 
   return (
     <ModalForm
-      initialValues={params}
+      initialValues={{
+        ...params,
+        video_resolution: [],
+      }}
       title="新建分享"
       form={form}
       autoFocusFirstInput

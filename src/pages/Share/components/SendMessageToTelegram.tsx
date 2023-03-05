@@ -48,7 +48,7 @@ ${(data.share_url || [])
 
 🎉 <a href="https://www.hdhive.org">影巢分类上线 - https://www.hdhive.org</a>
 
-${data.remark}
+${data.remark || ''}
 `,
         );
       },
