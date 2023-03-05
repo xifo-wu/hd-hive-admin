@@ -33,7 +33,7 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
         const { data } = res;
         form.setFieldValue(
           'caption',
-          `资源名称: <b>${data.title}</b>  
+          `资源名称: <b>${data.title} ${data.remark || ''}</b>  
 影片原名: ${data.original_title}  
 影片年代: ${data.release_date}  
 资源简介: ${data.overview}  
@@ -41,14 +41,21 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
 🏷️ 资源标签:  
 ${(data.keywords || []).map((item: string) => `${item}`).join(', ')}  
 
+${data.share_size ? `📦 资源大小: ${data.share_size}` : ''}  
+
+${
+  data.video_resolution && data.video_resolution.length
+    ? `🖥️ 分辨率: ${data.video_resolution.join(', ')}`
+    : ''
+}
+
 🔗 分享链接:  
 ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}
 
-🎉 <a href="https://www.hdhive.org">影巢分类上线 - https://www.hdhive.org</a>
-
-${data.remark || ''}
+🌈
+<a href="https://hdhive.org/share/${data.slug}">${data.title} - 影巢</a>
 `,
         );
       },
