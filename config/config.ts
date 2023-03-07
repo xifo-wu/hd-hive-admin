@@ -51,6 +51,12 @@ export default defineConfig({
           component: './Share',
         },
         {
+          name: '用户管理',
+          icon: 'team',
+          path: '/users',
+          component: './User',
+        },
+        {
           name: '流派管理',
           icon: 'nodeIndex',
           path: '/genre',
