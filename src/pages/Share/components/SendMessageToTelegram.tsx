@@ -31,10 +31,11 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
       revalidateOnFocus: false,
       onSuccess: (res) => {
         const { data } = res;
-        if (data.share_notification) {
-          form.setFieldValue('caption', data.share_notification.content);
-          return;
-        }
+        // 暂时不存上次发送的信息
+        // if (data.share_notification) {
+        //   form.setFieldValue('caption', data.share_notification.content);
+        //   return;
+        // }
 
         form.setFieldValue(
           'caption',
