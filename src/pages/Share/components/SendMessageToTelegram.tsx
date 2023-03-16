@@ -11,6 +11,7 @@ import { Row, Col, Form, Card, notification } from 'antd';
 import styles from '../styles.less';
 import rehypeRaw from 'rehype-raw';
 import { useModal } from '@/lib/hooks';
+import dayjs from 'dayjs';
 
 type Props = {
   modalName?: string;
@@ -31,36 +32,26 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
       revalidateOnFocus: false,
       onSuccess: (res) => {
         const { data } = res;
-        // 暂时不存上次发送的信息
-        // if (data.share_notification) {
-        //   form.setFieldValue('caption', data.share_notification.content);
-        //   return;
-        // }
 
         form.setFieldValue(
           'caption',
-          `资源名称: <b>${data.title} ${data.remark || ''}</b>  
-影片原名: ${data.original_title}  
-影片年代: ${data.release_date}  
-资源简介: ${data.overview}  
+          `名称: <b>${data.title}(${
+            data.release_date ? dayjs(data.release_date).format('YYYY') : ''
+          }) ${data.remark || ''}</b>  
 
-🏷️ 资源标签:  
-${(data.keywords || []).map((item: string) => `${item}`).join(', ')}  
+简介: ${data.overview}  
 
-${data.share_size ? `📦 资源大小: ${data.share_size}` : ''}  
+标签: ${(data.keywords || [])
+            .map((item: string) => `${item}`)
+            .join(' ')} ${data.video_resolution
+            .map((i: string) => `#${i}`)
+            .join(' ')}  
+大小: ${data.share_size || '未计算'}
 
-${
-  data.video_resolution && data.video_resolution.length
-    ? `🖥️ 分辨率: ${data.video_resolution.join(', ')}`
-    : ''
-}
-
-🔗 分享链接:  
+链接:  
 ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
-  .join('  \n')}
-
-🌈
+  .join('  \n')}  
 <a href="https://hdhive.org/share/${data.slug}">${data.title} - 影巢</a>
 `,
         );
