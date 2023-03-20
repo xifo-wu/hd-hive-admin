@@ -1,6 +1,6 @@
 import { useModel } from '@umijs/max';
 
-const useModal = (name?: string) => {
+const useModal = <T>(name?: string) => {
   const modelUpdater = (model: any) => {
     if (!name) {
       return {
@@ -11,7 +11,7 @@ const useModal = (name?: string) => {
 
     return {
       open: model[name]?.open || false,
-      params: model[name]?.params || {},
+      params: (model[name]?.params || {}) as T,
       closeModal: model.closeModal,
       openModal: model.openModal,
     };

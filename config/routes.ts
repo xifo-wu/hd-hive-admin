@@ -25,6 +25,18 @@ export default [
         component: './Home',
       },
       {
+        name: '资源分享(Next)',
+        icon: 'shareAlt',
+        path: '/resources',
+        routes: [
+          {
+            name: '电影管理',
+            path: '/resources/movies',
+            component: './Movie',
+          },
+        ],
+      },
+      {
         name: '资源分享',
         icon: 'cloud',
         path: '/share',

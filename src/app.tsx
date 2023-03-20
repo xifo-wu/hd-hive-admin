@@ -32,7 +32,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 
   return {
     logo: '/logo.png',
-    title: 'HD Hive',
+    title: '影  巢',
     avatarProps: {
       src: currentUser.gravatar_url,
       size: 'small',

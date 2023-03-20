@@ -4,6 +4,7 @@ import {
   ProForm,
   ProFormSwitch,
   ProFormText,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
 import { Alert, message } from 'antd';
 
@@ -114,6 +115,12 @@ const SystemSetting = () => {
           <ProFormText name="shop_qr_code" label="商城购买VIP二维码地址" />
           <ProFormText name="backdrop_url" label="背景图片(登录页、注册页)" />
         </ProForm.Group>
+
+        <ProFormTextArea
+          colProps={{ span: 24 }}
+          name="telegram_notification_ad"
+          label="TG 通知广告"
+        />
       </ProForm>
     </PageContainer>
   );

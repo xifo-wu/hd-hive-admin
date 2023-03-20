@@ -20,13 +20,18 @@ type Props = {
 const initModalName = 'SendMessageToTelegram';
 
 const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
-  const { params } = useModal(modalName);
+  const { params = {} } = useModal<any>(modalName);
   const { slug } = params;
   const [form] = Form.useForm();
   const [notificationApi, contextHolder] = notification.useNotification();
 
+  const { data: setting = {} } = useSWR<any>(
+    open ? '/api/v1/system-setting' : null,
+    api.get,
+  );
+
   const { data: response = {} } = useSWR<any>(
-    open ? `/api/v1/share/${slug}` : null,
+    open && setting?.data ? `/api/v1/share/${slug}` : null,
     api.get,
     {
       revalidateOnFocus: false,
@@ -52,7 +57,9 @@ const SendMessageToTelegram = ({ open, modalName, ...rest }: Props) => {
 ${(data.share_url || [])
   .map((item: string) => `<a href="${item}">${item}</a>`)
   .join('  \n')}  
-<a href="https://hdhive.org/share/${data.slug}">${data.title} - 影巢</a>
+<a href="https://hdhive.org/share/${data.slug}">${data.title} - 影巢</a>  
+
+${setting?.data?.telegram_notification_ad || ''}
 `,
         );
       },
@@ -94,7 +101,7 @@ ${(data.share_url || [])
             bordered={false}
             style={{ boxShadow: 'none' }}
             bodyStyle={{ padding: '4px 0' }}
-            cover={<img alt="电影海报" src={data.poster_url} />}
+            cover={<img alt="电影海报" src={data?.poster_url} />}
           >
             <Form.Item shouldUpdate style={{ fontSize: 12 }}>
               {() => {
