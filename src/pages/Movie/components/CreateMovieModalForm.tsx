@@ -24,8 +24,6 @@ const CreateMovieModalForm = ({
   const { open, params, closeModal } = useModal<Movie>(modalName);
   const [genres] = useState<string[]>(params?.genre_names || []);
 
-  console.log(params, 'params');
-
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       closeModal(modalName);
