@@ -6,6 +6,7 @@ import CreateMovieModalForm from './components/CreateMovieModalForm';
 import FetchMovieDetailModal from './components/FetchMovieDetailModal';
 import { PageContainer } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
+import { useModal } from '@/lib/hooks';
 import { Card, Space, Table, Tag, Typography } from 'antd';
 import type { Movie } from '@/services/types/movie';
 import MoreActions from './components/MoreActions';
@@ -17,6 +18,7 @@ interface Response<T> {
 }
 
 const MovieListPage = () => {
+  const { openModal } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     data: response = {},
@@ -105,6 +107,11 @@ const MovieListPage = () => {
     },
   ];
 
+  const handleCreateMovieFinish = (values: any) => {
+    openModal('ResourcesModal', { slug: values.slug });
+    mutate();
+  };
+
   return (
     <PageContainer extra={[<FetchMovieDetailModal key="createMovie" />]}>
       <SearchForm params={searchParams} onSearch={handleSearch} />
@@ -125,7 +132,7 @@ const MovieListPage = () => {
           onChange={handleTableChange}
         />
       </Card>
-      <CreateMovieModalForm onFinish={() => mutate()} />
+      <CreateMovieModalForm onFinish={handleCreateMovieFinish} />
       <ResourcesModal onFinish={() => mutate()} />
     </PageContainer>
   );

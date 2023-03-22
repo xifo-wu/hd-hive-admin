@@ -13,7 +13,7 @@ import { useState } from 'react';
 import api from '@/lib/utils/api';
 
 interface Props {
-  onFinish?: () => void;
+  onFinish?: (values: any) => void;
   modalName?: string;
 }
 
@@ -38,7 +38,7 @@ const CreateMovieModalForm = ({
       adult: params?.adult,
     };
 
-    const { error } = await api.post<any, any>(
+    const { response, error } = await api.post<any, any>(
       '/api/v1/manager/movies',
       payload,
     );
@@ -47,7 +47,7 @@ const CreateMovieModalForm = ({
       return;
     }
 
-    onFinish?.();
+    onFinish?.(response);
     return true;
   };
 
