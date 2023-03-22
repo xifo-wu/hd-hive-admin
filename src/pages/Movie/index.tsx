@@ -9,6 +9,7 @@ import { useSearchParams } from '@umijs/max';
 import { Card, Space, Table, Tag, Typography } from 'antd';
 import type { Movie } from '@/services/types/movie';
 import MoreActions from './components/MoreActions';
+import ResourcesModal from './components/ResourcesModal';
 
 interface Response<T> {
   data: T;
@@ -125,6 +126,7 @@ const MovieListPage = () => {
         />
       </Card>
       <CreateMovieModalForm onFinish={() => mutate()} />
+      <ResourcesModal onFinish={() => mutate()} />
     </PageContainer>
   );
 };

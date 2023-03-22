@@ -104,12 +104,10 @@ const MoreActions = ({ record, reloadData }: any) => {
     <Space>
       <Button
         size="small"
-        onClick={() =>
-          openModal('SendMessageToTelegram', { slug: record.slug })
-        }
+        onClick={() => openModal('ResourcesModal', { slug: record.slug })}
         type="link"
       >
-        通知
+        分享
       </Button>
       <Dropdown
         menu={{
