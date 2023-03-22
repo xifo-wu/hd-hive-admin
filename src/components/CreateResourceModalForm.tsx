@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { useEffect } from 'react';
 import { useModal } from '@/lib/hooks';
 import { Form, message } from 'antd';
 import {
@@ -7,6 +8,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
+import dayjs from 'dayjs';
 import api from '@/lib/utils/api';
 import type { Movie } from '@/services/types/movie';
 
@@ -15,12 +17,20 @@ interface Props {
   modalName?: string;
 }
 
-const CreatResourceModalForm = ({
+const CreateResourceModalForm = ({
   onFinish,
-  modalName = 'CreatResourceModalForm',
+  modalName = 'CreateResourceModalForm',
 }: Props) => {
   const [form] = Form.useForm();
   const { open, params, closeModal } = useModal<any>(modalName);
+
+  useEffect(() => {
+    if (open) {
+      form.setFieldsValue({
+        title: `${params.title}(${dayjs(params.release_date).format('YYYY')})`,
+      });
+    }
+  }, [open]);
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
@@ -70,7 +80,6 @@ const CreatResourceModalForm = ({
       onOpenChange={handleOpenChange}
       modalProps={{ destroyOnClose: true }}
       onFinish={handleFinish}
-      initialValues={params}
       rowProps={{
         gutter: [16, 16],
       }}
@@ -96,6 +105,7 @@ const CreatResourceModalForm = ({
 
       <ProFormSelect
         colProps={{ sm: 24, md: 12 }}
+        initialValue={[]}
         options={[
           { label: '720P', value: '720P' },
           { label: '1080P', value: '1080P' },
@@ -112,6 +122,7 @@ const CreatResourceModalForm = ({
 
       <ProFormSelect
         colProps={{ sm: 24, md: 12 }}
+        initialValue={[]}
         options={[
           { label: 'BluRay', value: 'BluRay' },
           { label: 'WEB-DL', value: 'WEB-DL' },
@@ -123,6 +134,39 @@ const CreatResourceModalForm = ({
         }}
         name="source"
         label="来源"
+      />
+
+      <ProFormSelect
+        colProps={{ sm: 24, md: 12 }}
+        initialValue={[]}
+        options={[
+          { label: '简中', value: '简中' },
+          { label: '繁中', value: '繁中' },
+          { label: '简英', value: '简英' },
+          { label: '简日', value: '简日' },
+        ]}
+        fieldProps={{
+          mode: 'tags',
+          onChange: handleGenAutoTitle,
+        }}
+        name="subtitle_language"
+        label="字幕语言"
+      />
+
+      <ProFormSelect
+        colProps={{ sm: 24, md: 12 }}
+        initialValue={[]}
+        options={[
+          { label: '外挂', value: '外挂' },
+          { label: '内封', value: '内封' },
+          { label: '内嵌', value: '内嵌' },
+        ]}
+        fieldProps={{
+          mode: 'tags',
+          onChange: handleGenAutoTitle,
+        }}
+        name="subtitle_type"
+        label="字幕种类"
       />
 
       <ProFormText
@@ -138,4 +182,4 @@ const CreatResourceModalForm = ({
   );
 };
 
-export default CreatResourceModalForm;
+export default CreateResourceModalForm;

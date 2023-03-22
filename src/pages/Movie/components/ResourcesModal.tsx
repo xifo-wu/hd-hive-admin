@@ -1,11 +1,23 @@
 import _ from 'lodash';
 import { useModal } from '@/lib/hooks';
-import { Avatar, Button, Modal, Space, Table, Tag, Typography } from 'antd';
+import {
+  Avatar,
+  Button,
+  Divider,
+  message,
+  Modal,
+  Popconfirm,
+  Space,
+  Table,
+  Tag,
+  Typography,
+} from 'antd';
 import { useModel } from '@umijs/max';
 import useSWR from 'swr';
 import api from '@/lib/utils/api';
-import CreatResourceModalForm from '@/components/CreatResourceModalForm';
+import CreateResourceModalForm from '@/components/CreateResourceModalForm';
 import dayjs from 'dayjs';
+import EditResourceModalForm from '@/components/EditResourceModalForm';
 
 interface Props {
   modalName?: string;
@@ -32,13 +44,32 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
     api.get,
   );
 
-  const { data: { resources = [] } = {} } = response;
+  const { data = {} } = response;
+  const { resources = [] } = data;
 
   const myResources = _.filter(resources, (i) => i.user_id === currentUser?.id);
   const otherResources = _.filter(
     resources,
     (i) => i.user_id !== currentUser?.id,
   );
+
+  const handleDestroy = async (id: number) => {
+    const { error } = await api.delete<any, any>(
+      `/api/v1/manager/resources/${id}`,
+    );
+
+    if (error) {
+      message.error(error.message);
+      return;
+    }
+
+    message.success('删除成功');
+    mutate();
+  };
+
+  const handleEdit = (id: number) => {
+    openModal('EditResourceModalForm', { id });
+  };
 
   const commonColumns = [
     {
@@ -101,7 +132,26 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
     },
   ];
 
-  const columns = [...commonColumns];
+  const columns = [
+    ...commonColumns,
+    {
+      title: '操作',
+      render: (record: any) => {
+        return (
+          <Space split={<Divider type="vertical" />}>
+            <a onClick={() => handleEdit(record.id)}>编辑</a>
+            <Popconfirm
+              title="你确定要删除吗?"
+              description="删除后将无法恢复哦"
+              onConfirm={() => handleDestroy(record.id)}
+            >
+              <a style={{ color: '#ef4444' }}>删除</a>
+            </Popconfirm>
+          </Space>
+        );
+      },
+    },
+  ];
 
   const otherColumns = [
     ...commonColumns,
@@ -133,7 +183,11 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
   ];
 
   const handleCreateResource = () => {
-    openModal('CreatResourceModalForm', { slug: params!.slug });
+    openModal('CreateResourceModalForm', {
+      slug: params!.slug,
+      title: data.title,
+      release_date: data.release_date,
+    });
   };
 
   return (
@@ -173,7 +227,8 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
         scroll={{ x: 'max-content' }}
       />
 
-      <CreatResourceModalForm onFinish={() => mutate()} />
+      <CreateResourceModalForm onFinish={() => mutate()} />
+      <EditResourceModalForm onFinish={() => mutate()} />
     </Modal>
   );
 };
