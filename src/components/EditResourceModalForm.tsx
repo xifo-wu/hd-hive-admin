@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import useSWR from 'swr';
 import { useModal } from '@/lib/hooks';
 import { Form, message } from 'antd';
@@ -47,23 +46,6 @@ const EditResourceModalForm = ({
     }
   };
 
-  const handleGenAutoTitle = () => {
-    const videoResolution = _.map(
-      form.getFieldValue('video_resolution'),
-      (i: string) => `[${i}]`,
-    ).join('');
-    const source = _.map(
-      form.getFieldValue('source'),
-      (i: string) => `[${i}]`,
-    ).join('');
-    const share_size = form.getFieldValue('share_size');
-
-    form.setFieldValue(
-      'title',
-      `${source}${videoResolution}${share_size ? `[${share_size}]` : ''}`,
-    );
-  };
-
   const handleFinish = async (values: any) => {
     const { error } = await api.put<any, any>(
       `/api/v1/manager/resources/${params.id}`,
@@ -106,9 +88,6 @@ const EditResourceModalForm = ({
         colProps={{ sm: 24, md: 6 }}
         name="share_size"
         label="大小"
-        fieldProps={{
-          onChange: handleGenAutoTitle,
-        }}
         placeholder="请输入大小"
       />
 
@@ -122,7 +101,6 @@ const EditResourceModalForm = ({
         ]}
         fieldProps={{
           mode: 'tags',
-          onChange: handleGenAutoTitle,
         }}
         name="video_resolution"
         label="分辨率"
@@ -137,7 +115,6 @@ const EditResourceModalForm = ({
         ]}
         fieldProps={{
           mode: 'tags',
-          onChange: handleGenAutoTitle,
         }}
         name="source"
         label="来源"
@@ -153,7 +130,6 @@ const EditResourceModalForm = ({
         ]}
         fieldProps={{
           mode: 'tags',
-          onChange: handleGenAutoTitle,
         }}
         name="subtitle_language"
         label="字幕语言"
@@ -168,7 +144,6 @@ const EditResourceModalForm = ({
         ]}
         fieldProps={{
           mode: 'tags',
-          onChange: handleGenAutoTitle,
         }}
         name="subtitle_type"
         label="字幕种类"
