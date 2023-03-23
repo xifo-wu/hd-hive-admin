@@ -79,6 +79,7 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
         return (
           <Typography.Paragraph
             copyable={{ text: record.url, tooltips: '复制分享链接' }}
+            style={{ marginBottom: 0 }}
           >
             <a href={record.url} target="_blank" rel="noreferrer">
               {v}
@@ -234,6 +235,7 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
       width={1200}
       open={open}
       onCancel={() => closeModal(modalName)}
+      footer={false}
     >
       <Typography.Title
         level={5}
