@@ -132,6 +132,38 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
     },
   ];
 
+  const handleSendMessage = (record: any) => {
+    const releaseYear = data.release_date
+      ? `(${dayjs(data.release_date).format('YYYY')})`
+      : '';
+
+    const source = _.map(record.source, (i) => `[${i}]`).join('');
+    const videoResolution = _.map(
+      record.video_resolution,
+      (i) => `[${i}]`,
+    ).join('');
+
+    const subtitle = [
+      ..._.map(record.subtitle_language, (i) => `#${i}`),
+      ..._.map(record.subtitle_type, (i) => `#${i}`),
+    ].join('/');
+
+    const keywords = _.map(data.genres, (i) => `#${i.name}`).join('/');
+
+    const params: Record<string, any> = {
+      title: `${data.title}${releaseYear}${source}${videoResolution}  `,
+      overview: `简介：${data.overview}  `,
+      poster_url: data.poster_url,
+      share_url: record.url,
+      share_size: record.share_size ? `大小：${record.share_size}  ` : '',
+      subtitle: subtitle ? `字幕：${subtitle}  ` : '',
+      keywords: keywords ? `标签：#${data.title}/${keywords}  ` : '',
+      web_link: `<a href="https://hdhive.org/movies/${data.slug}">${data.title} - 影巢</a>  `,
+    };
+
+    openModal('SendMessageToTelegram', params);
+  };
+
   const columns = [
     ...commonColumns,
     {
@@ -139,6 +171,12 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
       render: (record: any) => {
         return (
           <Space split={<Divider type="vertical" />}>
+            <a
+              onClick={() => handleSendMessage(record)}
+              style={{ color: '#10b981' }}
+            >
+              通知
+            </a>
             <a onClick={() => handleEdit(record.id)}>编辑</a>
             <Popconfirm
               title="你确定要删除吗?"

@@ -12,6 +12,7 @@ import type { Movie } from '@/services/types/movie';
 import MoreActions from './components/MoreActions';
 import ResourcesModal from './components/ResourcesModal';
 import UpdateMovieModalForm from './components/UpdateMovieModalForm';
+import SendMessageToTelegram from '@/components/SendMessageToTelegram';
 
 interface Response<T> {
   data: T;
@@ -136,6 +137,7 @@ const MovieListPage = () => {
       <CreateMovieModalForm onFinish={handleCreateMovieFinish} />
       <UpdateMovieModalForm onFinish={() => mutate()} />
       <ResourcesModal onFinish={() => mutate()} />
+      <SendMessageToTelegram />
     </PageContainer>
   );
 };
