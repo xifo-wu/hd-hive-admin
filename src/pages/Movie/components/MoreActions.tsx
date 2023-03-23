@@ -56,6 +56,9 @@ const MoreActions = ({ record, reloadData }: any) => {
 
   const handleMenuClick = ({ key }: any) => {
     switch (key) {
+      case 'update':
+        openModal('UpdateMovieModalForm', { slug });
+        break;
       case 'delete':
         setDropdownOpen(true);
         return;
@@ -75,6 +78,10 @@ const MoreActions = ({ record, reloadData }: any) => {
   };
 
   const moreActions = [
+    {
+      key: 'update',
+      label: '更新',
+    },
     record.is_banner
       ? {
           key: 'del_banner',

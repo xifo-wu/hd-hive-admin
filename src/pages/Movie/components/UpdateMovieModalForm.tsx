@@ -1,5 +1,6 @@
+import useSWR from 'swr';
 import { useModal } from '@/lib/hooks';
-import { message } from 'antd';
+import { Form, message } from 'antd';
 import {
   ModalForm,
   ProForm,
@@ -17,12 +18,32 @@ interface Props {
   modalName?: string;
 }
 
-const CreateMovieModalForm = ({
+const UpdateMovieModalForm = ({
   onFinish,
-  modalName = 'CreateMovieModalForm',
+  modalName = 'UpdateMovieModalForm',
 }: Props) => {
+  const [form] = Form.useForm();
   const { open, params, closeModal } = useModal<Movie>(modalName);
-  const [genres] = useState<string[]>(params?.genre_names || []);
+  const [genres, setGenres] = useState<string[]>([]);
+
+  const { data: response = {} } = useSWR<any>(
+    params?.slug && open ? `/api/v1/manager/movies/${params.slug}` : null,
+    api.get,
+    {
+      revalidateOnFocus: false,
+      onSuccess: (response) => {
+        const { data } = response;
+        const genres = (data.genres || []).map((i: any) => i.name);
+        setGenres(genres);
+        form.setFieldsValue({
+          ...data,
+          genre_names: genres,
+        });
+      },
+    },
+  );
+
+  const { data } = response;
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
@@ -32,16 +53,15 @@ const CreateMovieModalForm = ({
 
   const handleFinish = async (values: Movie) => {
     const payload = {
+      ...data,
       ...values,
-      tmdb_id: params?.id,
-      imdb_id: params?.imdb_id,
-      adult: params?.adult,
     };
 
-    const { response, error } = await api.post<any, any>(
-      '/api/v1/manager/movies',
+    const { response, error } = await api.put<any, any>(
+      `/api/v1/manager/movies/${params?.slug}`,
       payload,
     );
+
     if (error) {
       message.error(error.message);
       return;
@@ -56,6 +76,7 @@ const CreateMovieModalForm = ({
       title="新建电影"
       preserve
       open={open}
+      form={form}
       layout="vertical"
       onOpenChange={handleOpenChange}
       modalProps={{ destroyOnClose: true }}
@@ -213,4 +234,4 @@ const CreateMovieModalForm = ({
   );
 };
 
-export default CreateMovieModalForm;
+export default UpdateMovieModalForm;

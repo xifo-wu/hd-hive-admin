@@ -9,6 +9,7 @@ export interface Collection {
 
 export interface Movie {
   id: number;
+  slug: string;
   title: string;
   original_title: string;
   poster_path: string;
