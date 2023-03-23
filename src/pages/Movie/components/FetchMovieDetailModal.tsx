@@ -25,7 +25,7 @@ const FetchMovieDetailModal = ({
   const handleIsExist = async (key: string, value: any) => {
     try {
       const response = await api.get<any, any>(
-        '/api/v1/manager/movies-is-exist',
+        '/api/v1/manager/movies/is-exist',
         {
           params: {
             [key]: value,
