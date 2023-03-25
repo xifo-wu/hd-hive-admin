@@ -35,6 +35,7 @@ const CreateMovieModalForm = ({
       ...values,
       tmdb_id: params?.id,
       imdb_id: params?.imdb_id,
+      tmdb_url: params?.tmdb_url,
       adult: params?.adult,
     };
 

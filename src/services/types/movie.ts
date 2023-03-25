@@ -26,4 +26,5 @@ export interface Movie {
   runtime: number;
   status: string;
   tagline: string;
+  tmdb_url: string;
 }

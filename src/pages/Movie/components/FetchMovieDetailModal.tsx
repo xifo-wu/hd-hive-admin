@@ -59,7 +59,7 @@ const FetchMovieDetailModal = ({
     if (isExist) {
       openModal('ResourcesModal', { slug: data.slug });
     } else {
-      openModal('CreateMovieModalForm', params);
+      openModal('CreateMovieModalForm', { ...params, tmdb_url: values.url });
     }
 
     closeModal(modalName);

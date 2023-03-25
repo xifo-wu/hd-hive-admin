@@ -109,8 +109,10 @@ const MovieListPage = () => {
     },
   ];
 
-  const handleCreateMovieFinish = (values: any) => {
-    openModal('ResourcesModal', { slug: values.slug });
+  const handleCreateMovieFinish = (response: any) => {
+    const { data } = response;
+
+    openModal('ResourcesModal', { slug: data.slug });
     mutate();
   };
 

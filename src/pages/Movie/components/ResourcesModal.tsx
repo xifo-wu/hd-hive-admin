@@ -222,6 +222,7 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
   ];
 
   const handleCreateResource = () => {
+    console.log('data', data);
     openModal('CreateResourceModalForm', {
       slug: params!.slug,
       title: data.title,
