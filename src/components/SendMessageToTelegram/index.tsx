@@ -37,9 +37,10 @@ const SendMessageToTelegram = ({
         `名称：<b>${params.title}</b>  
 ${params.overview}
 ${params.keywords}
-${params.share_size}
 ${params.subtitle}
+${params.share_size}
 ${params.web_link}
+${params.share_url}
 
 ${setting?.telegram_notification_ad || ''}
         `,

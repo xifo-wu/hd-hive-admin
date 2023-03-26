@@ -155,11 +155,11 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
       title: `${data.title}${releaseYear}${source}${videoResolution}  `,
       overview: `简介：${data.overview}  `,
       poster_url: data.poster_url,
-      share_url: record.url,
+      share_url: `<a href="${record.url}">${record.url}</a>  `,
       share_size: record.share_size ? `大小：${record.share_size}  ` : '',
       subtitle: subtitle ? `字幕：${subtitle}  ` : '',
       keywords: keywords ? `标签：#${data.title}/${keywords}  ` : '',
-      web_link: `<a href="https://hdhive.org/movies/${data.slug}">${data.title} - 影巢</a>  `,
+      web_link: `<a href="https://hdhive.org/movie/${data.slug}">${data.title} - 影巢</a>  `,
     };
 
     openModal('SendMessageToTelegram', params);
