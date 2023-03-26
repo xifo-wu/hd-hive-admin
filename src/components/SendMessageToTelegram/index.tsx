@@ -35,13 +35,15 @@ const SendMessageToTelegram = ({
       form.setFieldValue(
         'caption',
         `名称：<b>${params.title}</b>  
+
 ${params.overview}
+
 ${params.keywords}
 ${params.subtitle}
 ${params.share_size}
-${params.web_link}
-${params.share_url}
 
+${params.share_url}
+${params.web_link}
 ${setting?.telegram_notification_ad || ''}
         `,
       );
