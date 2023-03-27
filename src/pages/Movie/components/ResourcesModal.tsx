@@ -145,6 +145,10 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
 
     const keywords = _.map(data.genres, (i) => `#${i.name}`).join(' ');
 
+    const isIncludeREMUX = _.filter(data.source, (i) =>
+      i.toLocaleUpperCase().includes('REMUX'),
+    );
+
     const params: Record<string, any> = {
       title: `${data.title}${releaseYear}${record.remark || ''}  `,
       overview: `简介：${data.overview}  `,
@@ -152,7 +156,9 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
       share_url: `<a href="${record.url}">${record.url}</a>  `,
       share_size: record.share_size ? `大小：${record.share_size}  ` : '',
       subtitle: subtitle ? `字幕：${subtitle}  ` : '',
-      keywords: keywords ? `标签：#${data.title} ${keywords}  ` : '',
+      keywords: keywords
+        ? `标签：#${data.title} ${keywords} ${isIncludeREMUX ? '#REMUX' : ''}  `
+        : '',
       web_link: `<a href="https://hdhive.org/movie/${data.slug}">${data.title} - 影巢</a>  `,
     };
 
