@@ -145,9 +145,9 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
 
     const keywords = _.map(data.genres, (i) => `#${i.name}`).join(' ');
 
-    const isIncludeREMUX = _.filter(data.source, (i) =>
-      i.toLocaleUpperCase().includes('REMUX'),
-    );
+    const isIncludeREMUX =
+      _.filter(record.source, (i) => i.toLocaleUpperCase().includes('REMUX'))
+        .length > 0;
 
     const params: Record<string, any> = {
       title: `${data.title}${releaseYear}${record.remark || ''}  `,
