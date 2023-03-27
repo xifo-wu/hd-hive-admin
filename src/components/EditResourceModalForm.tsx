@@ -109,9 +109,10 @@ const EditResourceModalForm = ({
       <ProFormSelect
         colProps={{ sm: 24, md: 12 }}
         options={[
-          { label: 'BluRay', value: 'BluRay' },
-          { label: 'WEB-DL', value: 'WEB-DL' },
-          { label: 'HDTV', value: 'HDTV' },
+          { label: '蓝光原盘/REMUX', value: '蓝光原盘/REMUX' },
+          { label: 'BDRip/BluRayEncode', value: 'BDRip/BluRayEncode' },
+          { label: 'WEB-DL/WEBRip', value: 'WEB-DL/WEBRip' },
+          { label: 'HDTV/HDTVRip', value: 'HDTV/HDTVRip' },
         ]}
         fieldProps={{
           mode: 'tags',
