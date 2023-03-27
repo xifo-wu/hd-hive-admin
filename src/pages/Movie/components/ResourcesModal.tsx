@@ -146,7 +146,7 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
     const keywords = _.map(data.genres, (i) => `#${i.name}`).join(' ');
 
     const params: Record<string, any> = {
-      title: `${data.title}${releaseYear}${record.remark}  `,
+      title: `${data.title}${releaseYear}${record.remark || ''}  `,
       overview: `简介：${data.overview}  `,
       poster_url: data.poster_url,
       share_url: `<a href="${record.url}">${record.url}</a>  `,
