@@ -138,27 +138,21 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
       ? `(${dayjs(data.release_date).format('YYYY')})`
       : '';
 
-    const source = _.map(record.source, (i) => `[${i}]`).join('');
-    const videoResolution = _.map(
-      record.video_resolution,
-      (i) => `[${i}]`,
-    ).join('');
-
     const subtitle = [
       ..._.map(record.subtitle_language, (i) => `#${i}`),
       ..._.map(record.subtitle_type, (i) => `#${i}`),
-    ].join('/');
+    ].join(' ');
 
-    const keywords = _.map(data.genres, (i) => `#${i.name}`).join('/');
+    const keywords = _.map(data.genres, (i) => `#${i.name}`).join(' ');
 
     const params: Record<string, any> = {
-      title: `${data.title}${releaseYear}${source}${videoResolution}  `,
+      title: `${data.title}${releaseYear}${record.remark}  `,
       overview: `简介：${data.overview}  `,
       poster_url: data.poster_url,
       share_url: `<a href="${record.url}">${record.url}</a>  `,
       share_size: record.share_size ? `大小：${record.share_size}  ` : '',
       subtitle: subtitle ? `字幕：${subtitle}  ` : '',
-      keywords: keywords ? `标签：#${data.title}/${keywords}  ` : '',
+      keywords: keywords ? `标签：#${data.title} ${keywords}  ` : '',
       web_link: `<a href="https://hdhive.org/movie/${data.slug}">${data.title} - 影巢</a>  `,
     };
 

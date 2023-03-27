@@ -39,11 +39,12 @@ const SendMessageToTelegram = ({
 ${params.overview}
 
 ${params.keywords}
-${params.subtitle}
 ${params.share_size}
 
+链接:  
 ${params.share_url}
 ${params.web_link}
+
 ${setting?.telegram_notification_ad || ''}
         `,
       );
