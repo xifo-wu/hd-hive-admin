@@ -34,6 +34,15 @@ export default [
             path: '/resources/movies',
             component: './Movie',
           },
+          {
+            name: '剧集管理',
+            path: '/resources/tv',
+            component: './TV',
+            meta: {
+              recordType: 'tv',
+              recordName: '剧集',
+            },
+          },
         ],
       },
       {
