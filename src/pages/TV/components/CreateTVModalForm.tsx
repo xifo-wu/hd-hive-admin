@@ -36,6 +36,7 @@ const CreateTVModalForm = ({
       overview: season.overview,
       poster_path: season.poster_path,
       season_number: season.season_number,
+      tmdb_season_id: season.id,
     }));
 
     const payload = {
@@ -49,6 +50,9 @@ const CreateTVModalForm = ({
       number_of_seasons: params?.number_of_seasons,
       homepage: params?.homepage,
       episode_run_time: params?.episode_run_time,
+      origin_country:
+        _.get(params, 'origin_country[0]') ||
+        _.get(params, 'production_countries[0].iso_3166_1'),
       seasons,
       record_type: recordType,
     };
