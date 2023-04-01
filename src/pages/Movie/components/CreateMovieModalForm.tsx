@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useModal } from '@/lib/hooks';
 import { message } from 'antd';
 import {
@@ -37,6 +38,7 @@ const CreateMovieModalForm = ({
       imdb_id: params?.imdb_id,
       tmdb_url: params?.tmdb_url,
       adult: params?.adult,
+      origin_country: _.get(params, 'production_countries[0].iso_3166_1'),
     };
 
     const { response, error } = await api.post<any, any>(
