@@ -13,6 +13,7 @@ import MoreActions from './components/MoreActions';
 import ResourcesModal from './components/ResourcesModal';
 import UpdateTVModalForm from './components/UpdateTVModalForm';
 import SendMessageToTelegram from '@/components/SendMessageToTelegram';
+import ReplaceBannerModal from '@/components/ReplaceBannerModal';
 
 interface Response<T> {
   data: T;
@@ -155,6 +156,7 @@ const TvListPage = () => {
       <UpdateTVModalForm onFinish={() => mutate()} />
       <ResourcesModal onFinish={() => mutate()} />
       <SendMessageToTelegram />
+      <ReplaceBannerModal onFinish={() => mutate()} />
     </PageContainer>
   );
 };
