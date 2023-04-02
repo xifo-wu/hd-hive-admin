@@ -30,7 +30,7 @@ const SearchForm = ({ params, onSearch }: SearchFormProps) => {
         onFinish={onSearch}
         onReset={handleReset}
       >
-        <ProFormText name="title" label="电影名称" />
+        <ProFormText name="name" label="名称" />
       </QueryFilter>
     </Card>
   );

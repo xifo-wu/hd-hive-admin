@@ -43,6 +43,15 @@ export default [
               recordName: '剧集',
             },
           },
+          {
+            name: '动漫管理',
+            path: '/resources/animes',
+            component: './TV',
+            meta: {
+              recordType: 'anime',
+              recordName: '动漫',
+            },
+          },
         ],
       },
       {

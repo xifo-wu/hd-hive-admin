@@ -1,3 +1,4 @@
+import { stringify } from 'qs';
 import useSWR from 'swr';
 import api from '@/lib/utils/api';
 import searchParamsToObj from '@/lib/utils/searchParamsToObj';
@@ -24,12 +25,19 @@ const TvListPage = () => {
   const { meta: routeMeta } = useRouteProps(); // 获取当前路由信息
   const { openModal } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = {
+    record_type: routeMeta.recordType,
+  };
+
+  const queryString = `${stringify(query)}&${searchParams.toString()}`;
+
   const {
     data: response = {},
     isLoading,
     isValidating,
     mutate,
-  } = useSWR<any>(`/api/v1/manager/tv?${searchParams.toString()}`, api.get);
+  } = useSWR<any>(`/api/v1/manager/tv?${queryString}`, api.get);
 
   const { data: dataSource = [], meta = {} }: Response<Array<Movie>> = response;
   const title = `新增${routeMeta.recordName}`;
