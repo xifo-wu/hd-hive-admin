@@ -146,6 +146,7 @@ const TVCommonForm = ({ genres }: Props) => {
         }}
         name="genre_names"
         label="分类"
+        rules={[{ required: true }]}
       />
 
       <ProFormTextArea colProps={{ span: 24 }} name="overview" label="简介" />
