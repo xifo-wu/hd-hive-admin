@@ -25,7 +25,7 @@ export default [
         component: './Home',
       },
       {
-        name: '资源分享(Next)',
+        name: '资源分享',
         icon: 'shareAlt',
         path: '/resources',
         routes: [
@@ -50,6 +50,24 @@ export default [
             meta: {
               recordType: 'anime',
               recordName: '动漫',
+            },
+          },
+          {
+            name: '综艺管理',
+            path: '/resources/zongyi',
+            component: './TV',
+            meta: {
+              recordType: 'zongyi',
+              recordName: '综艺',
+            },
+          },
+          {
+            name: '纪录片管理',
+            path: '/resources/documentary',
+            component: './TV',
+            meta: {
+              recordType: 'documentary',
+              recordName: '纪录片',
             },
           },
         ],
