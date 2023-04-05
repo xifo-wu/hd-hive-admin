@@ -75,6 +75,7 @@ export default [
       {
         name: '资源分享',
         icon: 'cloud',
+        hideInMenu: true,
         path: '/share',
         component: './Share',
       },
