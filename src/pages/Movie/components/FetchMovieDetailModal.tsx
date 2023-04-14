@@ -2,7 +2,6 @@ import { Button, Card, Col, message, Modal, Row } from 'antd';
 import { ReactNode, useState } from 'react';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
 import useModal from '@/lib/hooks/useModal';
-import tmdbAltShortIcon from '@/assets/tmdb_alt_short_icon.svg';
 import { getTmdbDetail } from '@/services/tmdb';
 import type { Movie } from '@/services/types/movie';
 import api from '@/lib/utils/api';
@@ -18,8 +17,13 @@ const FetchMovieDetailModal = ({
   const { open, closeModal, openModal } = useModal(modalName);
   const [selectedMode, setSelectedMode] = useState('');
 
-  const handleSelectMode = (modeName: 'tmdb' | 'manual') => {
+  const handleSelectMode = (modeName: 'tmdb' | 'tmdbSearch' | 'manual') => {
     setSelectedMode(modeName);
+  };
+
+  const handleTmdbSearchFinish = async (values: any) => {
+    closeModal(modalName);
+    openModal('TmdbMovieSearchModalForm', values);
   };
 
   const handleIsExist = async (key: string, value: any) => {
@@ -80,23 +84,72 @@ const FetchMovieDetailModal = ({
         <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
           <Col span={12}>
             <Card
+              size="small"
+              hoverable
+              onClick={() => handleSelectMode('tmdbSearch')}
+            >
+              <div
+                style={{
+                  textAlign: 'center',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundImage:
+                    'linear-gradient(to right, #90cea1 10%, #01b4e4)',
+                  fontWeight: 800,
+                  fontSize: '1.625rem',
+                }}
+              >
+                TMDB 搜索
+              </div>
+            </Card>
+          </Col>
+
+          <Col span={12}>
+            <Card
+              size="small"
               hoverable
               onClick={() => handleSelectMode('tmdb')}
-              style={{
-                width: 240,
-                ...(selectedMode === 'tmdb' && { borderColor: '#90cea1' }),
-              }}
-              bodyStyle={{ display: 'none' }}
-              cover={
-                <img
-                  style={{ padding: 16 }}
-                  alt="example"
-                  src={tmdbAltShortIcon}
-                />
-              }
-            />
+            >
+              <div
+                style={{
+                  textAlign: 'center',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundImage:
+                    'linear-gradient(to right, #90cea1 10%, #01b4e4)',
+                  fontWeight: 800,
+                  fontSize: '1.625rem',
+                }}
+              >
+                TMDB 链接
+              </div>
+            </Card>
           </Col>
         </Row>
+
+        {selectedMode === 'tmdbSearch' && (
+          <div style={{ marginTop: 16 }}>
+            <ProForm onFinish={handleTmdbSearchFinish}>
+              <ProFormText
+                name="query"
+                label="关键字"
+                placeholder="请输入影片关键字"
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入关键字',
+                  },
+                ]}
+              />
+
+              <ProFormText
+                name="primary_release_year"
+                label="年份"
+                placeholder="请输入影片年份"
+              />
+            </ProForm>
+          </div>
+        )}
 
         {selectedMode === 'tmdb' && (
           <div style={{ marginTop: 16 }}>

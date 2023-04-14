@@ -13,6 +13,7 @@ import MoreActions from './components/MoreActions';
 import ResourcesModal from './components/ResourcesModal';
 import UpdateMovieModalForm from './components/UpdateMovieModalForm';
 import SendMessageToTelegram from '@/components/SendMessageToTelegram';
+import TmdbMovieSearchModalForm from './components/TmdbMovieSearchModalForm';
 
 interface Response<T> {
   data: T;
@@ -27,7 +28,13 @@ const MovieListPage = () => {
     isLoading,
     isValidating,
     mutate,
-  } = useSWR<any>(`/api/v1/manager/movies?${searchParams.toString()}`, api.get);
+  } = useSWR<any>(
+    `/api/v1/manager/movies?${searchParams.toString()}`,
+    api.get,
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
   const { data: dataSource = [], meta = {} }: Response<Array<Movie>> = response;
 
@@ -116,6 +123,10 @@ const MovieListPage = () => {
     mutate();
   };
 
+  const handleReloadData = () => {
+    mutate();
+  };
+
   return (
     <PageContainer extra={[<FetchMovieDetailModal key="createMovie" />]}>
       <SearchForm params={searchParams} onSearch={handleSearch} />
@@ -140,6 +151,8 @@ const MovieListPage = () => {
       <UpdateMovieModalForm onFinish={() => mutate()} />
       <ResourcesModal onFinish={() => mutate()} />
       <SendMessageToTelegram />
+
+      <TmdbMovieSearchModalForm onFinish={handleReloadData} />
     </PageContainer>
   );
 };
