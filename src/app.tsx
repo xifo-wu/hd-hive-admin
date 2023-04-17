@@ -9,6 +9,7 @@ import { Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
+import SWRConfigContainer from '@/components/SWRConfigContainer';
 
 dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);
@@ -62,6 +63,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     },
     menu: {
       locale: false,
+    },
+    childrenRender: function (children: React.ReactNode) {
+      return <SWRConfigContainer>{children}</SWRConfigContainer>;
     },
     rightContentRender: () => <></>,
     onMenuHeaderClick: () => {

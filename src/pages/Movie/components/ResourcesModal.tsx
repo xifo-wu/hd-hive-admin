@@ -12,12 +12,12 @@ import {
   Tag,
   Typography,
 } from 'antd';
-import { useModel } from '@umijs/max';
 import useSWR from 'swr';
 import api from '@/lib/utils/api';
 import CreateResourceModalForm from '@/components/CreateResourceModalForm';
 import dayjs from 'dayjs';
 import EditResourceModalForm from '@/components/EditResourceModalForm';
+import useUser from '@/lib/hooks/useUser';
 
 interface Props {
   modalName?: string;
@@ -29,10 +29,8 @@ interface Params {
 }
 
 const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
+  const currentUser = useUser();
   const { params, open, openModal, closeModal } = useModal<Params>(modalName);
-
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState!;
 
   const {
     data: response = {},
@@ -210,7 +208,7 @@ const ResourcesModal = ({ modalName = 'ResourcesModal' }: Props) => {
             <Typography.Link
               ellipsis
               style={{ width: 120 }}
-              href={`https://www.hdhive.org/user/${user.id}`}
+              href={`https://www.hdhive.org/user/${record.user_id}`}
               target="_blank"
             >
               {v}
