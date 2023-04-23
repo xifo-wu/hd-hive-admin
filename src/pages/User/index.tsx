@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import qs from 'qs';
 import { useSearchParams } from '@umijs/max';
 import {
   ProFormText,
@@ -9,6 +10,7 @@ import {
 import { Card, Space, Table, Typography } from 'antd';
 import api from '@/lib/utils/api';
 import MoreActions from './components/MoreActions';
+import _ from 'lodash';
 
 const searchParamsToObject = (searchParams: URLSearchParams) => {
   const object: Record<string, string> = {};
@@ -21,6 +23,7 @@ const searchParamsToObject = (searchParams: URLSearchParams) => {
 
 const User = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParamsToObject(searchParams);
   const {
     data: res = {},
     isLoading,
@@ -41,16 +44,32 @@ const User = () => {
   const handleTableChange = (
     pagination: any,
     _filters: any,
-    _sorter: any,
+    sorter: any,
     { action }: any,
   ) => {
     if (action === 'paginate') {
-      const query = searchParamsToObject(searchParams);
       setSearchParams({
         ...query,
         page: pagination.current,
         per_page: pagination.pageSize,
       });
+
+      return;
+    }
+
+    if (action === 'sort') {
+      const sortBy = Array.isArray(sorter.field)
+        ? _.last(sorter.field)
+        : sorter.field;
+      const sortOrder = sorter.order;
+
+      setSearchParams(
+        qs.stringify({
+          ...query,
+          sort_by: sortOrder ? sortBy : undefined,
+          sort_order: sortOrder,
+        }),
+      );
 
       return;
     }
@@ -84,6 +103,8 @@ const User = () => {
     {
       title: '积分',
       dataIndex: ['user_meta', 'points'],
+      sorter: true,
+      sortOrder: query.sort_order,
     },
     {
       title: '操作',
