@@ -82,6 +82,10 @@ const User = () => {
       dataIndex: ['user_meta', 'share_num'],
     },
     {
+      title: '积分',
+      dataIndex: ['user_meta', 'points'],
+    },
+    {
       title: '操作',
       render: (record: any) => (
         <MoreActions record={record} reloadData={() => mutate()} />
