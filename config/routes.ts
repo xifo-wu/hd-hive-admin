@@ -92,6 +92,12 @@ export default [
         component: './Genre',
       },
       {
+        name: '意向计划',
+        icon: 'experiment',
+        path: '/next-plan',
+        component: './NextPlan',
+      },
+      {
         name: '系统配置',
         icon: 'setting',
         path: '/system-setting',
