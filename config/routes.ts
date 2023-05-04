@@ -98,6 +98,12 @@ export default [
         component: './NextPlan',
       },
       {
+        name: '更新日志',
+        icon: 'api',
+        path: '/change-logs',
+        component: './ChangeLog',
+      },
+      {
         name: '系统配置',
         icon: 'setting',
         path: '/system-setting',
