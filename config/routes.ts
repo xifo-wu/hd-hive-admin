@@ -73,13 +73,6 @@ export default [
         ],
       },
       {
-        name: '资源分享',
-        icon: 'cloud',
-        hideInMenu: true,
-        path: '/share',
-        component: './Share',
-      },
-      {
         name: '用户管理',
         icon: 'team',
         path: '/users',
