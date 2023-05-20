@@ -86,6 +86,21 @@ const User = () => {
     {
       title: 'UID',
       dataIndex: 'id',
+      render: (value: number, record: Record<string, any>) => {
+        if (record.is_block) {
+          return (
+            <span>
+              {value}
+              <span style={{ color: '#ef4444' }}>(已封禁)</span>
+            </span>
+          );
+        }
+        return value;
+      },
+    },
+    {
+      title: '昵称',
+      dataIndex: 'nickname',
     },
     {
       title: '邮箱',
@@ -105,6 +120,10 @@ const User = () => {
       dataIndex: ['user_meta', 'points'],
       sorter: true,
       sortOrder: query.sort_order,
+    },
+    {
+      title: '警告次数',
+      dataIndex: 'warnings_nums',
     },
     {
       title: '操作',
