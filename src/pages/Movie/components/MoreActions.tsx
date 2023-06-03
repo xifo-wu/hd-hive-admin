@@ -31,7 +31,11 @@ const MoreActions = ({ record, reloadData }: any) => {
     if (error) {
       message.error(error.message);
       if (error.meta?.need_replace) {
-        openModal('ReplaceBannerModal', { slug, shareType: record.share_type });
+        openModal('ReplaceBannerModal', {
+          slug,
+          modelName: 'movies',
+          query: { is_banner: 1 },
+        });
       }
       return;
     }

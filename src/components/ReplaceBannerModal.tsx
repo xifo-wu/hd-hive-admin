@@ -25,7 +25,7 @@ const ReplaceBannerModal = ({
       : null,
     api.get,
     {
-      dedupingInterval: 500,
+      dedupingInterval: 100,
     },
   );
 

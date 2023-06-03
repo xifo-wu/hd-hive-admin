@@ -14,6 +14,7 @@ import ResourcesModal from './components/ResourcesModal';
 import UpdateMovieModalForm from './components/UpdateMovieModalForm';
 import SendMessageToTelegram from '@/components/SendMessageToTelegram';
 import TmdbMovieSearchModalForm from './components/TmdbMovieSearchModalForm';
+import ReplaceBannerModal from '@/components/ReplaceBannerModal';
 
 interface Response<T> {
   data: T;
@@ -151,6 +152,7 @@ const MovieListPage = () => {
       <UpdateMovieModalForm onFinish={() => mutate()} />
       <ResourcesModal onFinish={() => mutate()} />
       <SendMessageToTelegram />
+      <ReplaceBannerModal onFinish={() => mutate()} />
 
       <TmdbMovieSearchModalForm onFinish={handleReloadData} />
     </PageContainer>
