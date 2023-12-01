@@ -102,6 +102,12 @@ const SystemSetting = () => {
             rules={[{ required: true }]}
           />
           <ProFormSwitch name="is_allow_register" label="是否允许注册" />
+          <ProFormSwitch
+            name="is_close_guest_mode"
+            checkedChildren="是"
+            unCheckedChildren="否"
+            label="关闭游客访问"
+          />
         </ProForm.Group>
         <ProForm.Group
           title="页面配置"
