@@ -139,6 +139,12 @@ const SystemSetting = () => {
           name="telegram_checkin_ads_keyboard"
           label="TG Bot 签到广告"
         />
+
+        <ProFormTextArea
+          colProps={{ span: 24 }}
+          name="telegram_chats"
+          label="TG 通知频道列表"
+        />
       </ProForm>
     </PageContainer>
   );
